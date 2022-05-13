@@ -1,0 +1,32 @@
+{
+  "name": "supervueman",
+  "short_name": "sprvmn",
+  "theme_color": "#477396",
+  "background_color": "#2b90e0",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": ".",
+  "icons": [
+    {
+      "src": "/icons/app-icon-96-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/app-icon-144-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/app-icon-256-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/app-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
