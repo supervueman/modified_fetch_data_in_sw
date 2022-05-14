@@ -16,17 +16,20 @@ window.addEventListener('load', async () => {
 async function loadPosts() {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=11')
   console.log(res)
-  const data = await res.json()
-
-  const container = document.querySelector('#posts')
-  container.innerHTML = data.map(toCard).join('\n')
+  if (res) {
+    const data = await res.json()
+    const container = document.querySelector('#posts')
+    container.innerHTML = data.map(toCard).join('\n')
+  }
 }
 
 async function testFetch() {
   const res = await fetch('my-test-fetch')
   console.log('Test response:', res)
-  const data = await res.json()
-  console.log('Test data:', data)
+  if (res.ok) {
+    const data = await res.json()
+    console.log('Test data:', data)
+  }
 }
 
 function toCard(post) {

@@ -17,6 +17,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(async function () {
     if (event.request.url === url) {
       const res = await fetch(url)
+      console.log('SW:', res)
       const data = await res.json()
       const modifiedData = data.map(d => ({
         ...d,
@@ -47,6 +48,8 @@ self.addEventListener('fetch', event => {
       return new Response(blob, init)
     }
 
-    return fetch(event.request)
+    const cached = await caches.match(event.request)
+
+    return cached ?? fetch(event.request)
   }())
 })
