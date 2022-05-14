@@ -48,8 +48,12 @@ self.addEventListener('fetch', event => {
       return new Response(blob, init)
     }
 
-    const cached = await caches.match(event.request)
-
-    return cached ?? fetch(event.request)
+    return cacheFirst(event.request)
   }())
 })
+
+const cacheFirst = async (request) => {
+  const cached = await caches.match(request)
+
+  return cached ?? fetch(request)
+}
