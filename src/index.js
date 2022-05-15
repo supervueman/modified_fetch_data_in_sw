@@ -5,6 +5,7 @@ window.addEventListener('load', async () => {
       console.log('Service worker register success', reg)
 
       testFetch2()
+      getPosts()
     } catch (e) {
       console.log('Service worker register fail')
     }
@@ -57,4 +58,18 @@ function toCard(post) {
       </div>
     </div>
   `
+}
+
+async function getPosts() {
+  const clickBtn = document.querySelector('#click-btn-2')
+
+  clickBtn.addEventListener('click', async () => {
+    const registration = await navigator.serviceWorker.ready
+    await registration.sync.register('my-tag-name');
+
+    registration.sync.getTags().then(tags => {
+      if (tags.includes('my-tag-name'))
+        console.log('Messages sync already requested', tags);
+      })
+  })
 }

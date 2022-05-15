@@ -79,6 +79,7 @@ self.addEventListener('fetch', async event => {
       return cacheFirst(event.request)
     } else {
       return networkFirst(event.request)
+      // return fetch(event.request)
     }
   }())
 })
@@ -102,3 +103,14 @@ const networkFirst = async (request) => {
     return cached ?? caches.match('/offline.html')
   }
 }
+
+self.addEventListener('sync', async function(event) {
+  if (event.tag == 'my-tag-name') {
+    event.waitUntil(async function() {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+      console.log('SYNC:', await res.json())
+      await console.log('SYNC', 123)
+      return res
+    }())
+  }
+})
