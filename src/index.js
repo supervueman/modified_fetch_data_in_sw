@@ -73,4 +73,25 @@ async function getPosts() {
         console.log('Messages sync already requested', tags);
       })
   })
+
+  // ================================================================
+  // WORKERS
+  const workerBtn = document.querySelector('#worker-btn')
+
+  if (window.Worker) {
+    const myWorker = new Worker('worker.js')
+
+    console.log(myWorker)
+
+    workerBtn.onclick = function() {
+      myWorker.postMessage([100, 100])
+      console.log('Message posted to worker')
+    }
+
+    myWorker.onmessage = function(e) {
+      console.log('Message received from worker', e)
+    }
+  } else {
+    console.log('Your browser doesn\'t support web workers.')
+  }
 }
