@@ -16,6 +16,7 @@ window.addEventListener('load', async () => {
   await testFetch()
 })
 
+// Add comment
 async function loadPosts() {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=11')
   console.log(res)
