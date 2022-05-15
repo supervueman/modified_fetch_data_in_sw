@@ -4,8 +4,8 @@ const testUrl2 = 'http://localhost:3000/my-test-fetch-2'
 
 const cacheUrls = ['index.html', '/src/index.js', '/css/styles.css', '/offline.html']
 
-const staticCacheName = 'v1-static'
-const dynamicCacheName = 'v1-dynamic'
+const staticCacheName = 'v2-static'
+const dynamicCacheName = 'v2-dynamic'
 
 self.addEventListener('install', async event => {
   console.log('Sw install', event)
