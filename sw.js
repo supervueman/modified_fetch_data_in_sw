@@ -1,5 +1,6 @@
 const url = 'https://jsonplaceholder.typicode.com/posts?_limit=11'
 const testUrl = 'http://localhost:3000/my-test-fetch'
+const testUrl2 = 'http://localhost:3000/my-test-fetch-2'
 
 const cacheUrls = ['index.html', '/src/index.js', '/css/styles.css', '/offline.html']
 
@@ -24,24 +25,37 @@ self.addEventListener('activate', async event => {
   )
 })
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', async event => {
+  event.waitUntil(async function () {
+    if (event.clientId && event.request.url === testUrl2) {
+      const client = await clients.get(event.clientId)
+
+      if (client) {
+        client.postMessage({
+          msg: 'Hello',
+          url: event.request.url,
+        })
+      }
+    }
+  }())
+
   event.respondWith(async function () {
-    // if (event.request.url === url) {
-    //   const res = await fetch(url)
-    //   console.log('SW:', res)
-    //   const data = await res.json()
-    //   const modifiedData = data.map(d => ({
-    //     ...d,
-    //     title: 'Modified title',
-    //   }))
-    //   const init = { status: 200, statusText: 'SuperSmashingGreat!' }
+    if (event.request.url === url) {
+      const res = await fetch(url)
+      console.log('SW:', res)
+      const data = await res.json()
+      const modifiedData = data.map(d => ({
+        ...d,
+        title: 'Modified title',
+      }))
+      const init = { status: 200, statusText: 'SuperSmashingGreat!' }
 
-    //   const blob = new Blob([JSON.stringify(modifiedData, null, 2)], {type : 'application/json'})
+      const blob = new Blob([JSON.stringify(modifiedData, null, 2)], {type : 'application/json'})
 
-    //   console.log(data)
+      console.log(data)
 
-    //   return new Response(blob, init)
-    // }
+      return new Response(blob, init)
+    }
 
     if (event.request.url === testUrl) {
       console.log(event)

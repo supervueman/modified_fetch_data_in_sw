@@ -3,6 +3,8 @@ window.addEventListener('load', async () => {
     try {
       const reg = await navigator.serviceWorker.register('/sw.js')
       console.log('Service worker register success', reg)
+
+      testFetch2()
     } catch (e) {
       console.log('Service worker register fail')
     }
@@ -30,6 +32,18 @@ async function testFetch() {
     const data = await res.json()
     console.log('Test data:', data)
   }
+}
+
+async function testFetch2() {
+  const clickBtn = document.querySelector('#click-btn')
+
+  clickBtn.addEventListener('click', () => {
+    fetch('my-test-fetch-2')
+  })
+
+  navigator.serviceWorker.addEventListener('message', event => {
+    console.log(event.data.msg, event.data.url);
+  })
 }
 
 function toCard(post) {
