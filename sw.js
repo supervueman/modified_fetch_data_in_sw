@@ -40,22 +40,22 @@ self.addEventListener('fetch', async event => {
   }())
 
   event.respondWith(async function () {
-    if (event.request.url === url) {
-      const res = await fetch(url)
-      console.log('SW:', res)
-      const data = await res.json()
-      const modifiedData = data.map(d => ({
-        ...d,
-        title: 'Modified title',
-      }))
-      const init = { status: 200, statusText: 'SuperSmashingGreat!' }
+    // if (event.request.url === url) {
+    //   const res = await fetch(url)
+    //   console.log('SW:', res)
+    //   const data = await res.json()
+    //   const modifiedData = data.map(d => ({
+    //     ...d,
+    //     title: 'Modified title',
+    //   }))
+    //   const init = { status: 200, statusText: 'SuperSmashingGreat!' }
 
-      const blob = new Blob([JSON.stringify(modifiedData, null, 2)], {type : 'application/json'})
+    //   const blob = new Blob([JSON.stringify(modifiedData, null, 2)], {type : 'application/json'})
 
-      console.log(data)
+    //   console.log(data)
 
-      return new Response(blob, init)
-    }
+    //   return new Response(blob, init)
+    // }
 
     if (event.request.url === testUrl) {
       console.log(event)
@@ -100,7 +100,7 @@ const networkFirst = async (request) => {
     return response
   } catch (error) {
     const cached = await cache.match(request)
-    return cached ?? caches.match('/offline.html')
+    return cached ?? caches.match('/offline')
   }
 }
 
